@@ -1,0 +1,20 @@
+﻿@model WebUI.Models.ViewModels.UploadViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Upload</h1>
+    <p>You are able to upload any file:)</p>
+</div>
+
+@using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { @class = "", id = "addPackageForm", enctype = "multipart/form-data" }))
+{
+    @Html.TextBoxFor(m => m.File, new { type = "file" })
+
+    <p>@Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger" })</p>
+
+    @if(Model.Success)
+    {
+        <p class="text-success">File uploaded. It's path: @Model.FullPath</p>
+    }
+
+    <input type="submit" name="name" value="Upload" />
+}
