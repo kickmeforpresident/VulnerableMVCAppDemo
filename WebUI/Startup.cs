@@ -31,8 +31,7 @@ namespace WebUI
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
+            });            
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -84,6 +83,12 @@ namespace WebUI
             app.UseStaticFiles();
 
             app.UseCookiePolicy();
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Xss-Protection", "0");
+                await next();
+            });
 
             app.UseMvc(routes =>
             {

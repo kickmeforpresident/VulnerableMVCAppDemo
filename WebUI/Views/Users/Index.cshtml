@@ -1,0 +1,44 @@
+﻿@model WebUI.Models.ViewModels.UsersViewModel
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Users</h1>
+    <p>You are able to search for users.</p>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h2>Search for a user by his/her Name.</h2>
+        <p>
+            Hint: Inject some tags into the form below.
+        </p>
+        @using (Html.BeginForm("Index", "Users", FormMethod.Post, new { @class = "", id = "", enctype = "multipart/form-data" }))
+        {
+            <label>Search Query: </label>
+            @Html.TextBoxFor(m => m.QueryString)
+            <input type="submit" name="name" value="Search" />
+        }
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <h2>Your Query: @Html.Raw(Model.QueryString)</h2>
+    </div>
+</div>
+
+@if (Model.Users != null)
+{
+    <div class="row mt-3">
+        <div class="col-12">
+            @foreach (var item in Model.Users)
+            {
+                <p>@item.Name</p>
+            }
+        </div>
+    </div>
+}
+
